@@ -1,65 +1,115 @@
-# ⚡ Smart Campus Energy Monitoring System
+<h1 align="center">
+⚡ Smart Campus Energy Monitoring System
+</h1>
 
 <p align="center">
-  <img src="screenshots/Dashboard.png" alt="Dashboard" width="100%">
+Real-Time Energy Monitoring • Intelligent Anomaly Detection • Interactive Dashboard
 </p>
 
-## 📖 Project Overview
+<p align="center">
 
-The **Smart Campus Energy Monitoring System** is a web-based application designed to monitor and analyze electricity consumption across campus buildings in real time. The system collects energy data, detects abnormal power usage, generates alerts, and presents the information through an interactive dashboard.
+![Python](https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&logo=fastapi)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-336791?style=for-the-badge&logo=postgresql)
+![Chart.js](https://img.shields.io/badge/Chart.js-Visualization-FF6384?style=for-the-badge&logo=chartdotjs)
+![HTML5](https://img.shields.io/badge/HTML5-Frontend-E34F26?style=for-the-badge&logo=html5)
+![License](https://img.shields.io/badge/License-Educational-green?style=for-the-badge)
 
-This project was developed as part of the **Master of Computer Applications (MCA)** program to demonstrate real-time monitoring, data visualization, and anomaly detection using modern web technologies.
-
----
-
-## ✨ Features
-
-- ⚡ Real-time energy monitoring
-- 📊 Interactive dashboard with live statistics
-- 📈 Energy consumption trend visualization
-- 🚨 Automatic anomaly detection and alert generation
-- 🏢 Building-wise energy monitoring
-- 📋 Recent alerts display
-- 🔄 Auto-refresh dashboard
-- 📉 Energy usage analytics
+</p>
 
 ---
 
-## 🛠️ Technologies Used
+# 📌 Overview
 
-### Backend
-- Python
-- FastAPI
+The **Smart Campus Energy Monitoring System** is a web-based application developed to monitor, analyze, and visualize electricity consumption across multiple campus buildings in real time.
 
-### Database
-- PostgreSQL
+The system continuously collects energy readings, detects abnormal power consumption using threshold-based anomaly detection, stores historical data in PostgreSQL, and presents actionable insights through a modern interactive dashboard.
 
-### Frontend
-- HTML5
-- CSS3
-- JavaScript
-- Chart.js
-
-### Development Tools
-- Visual Studio Code
-- Git
-- GitHub
+The primary objective of this project is to promote efficient energy management by providing administrators with live monitoring, analytical reports, and instant alerts whenever unusual energy usage is detected.
 
 ---
 
-## 📂 Project Structure
+# 🚀 Key Features
 
-```text
-Smart-Campus-Energy-Monitoring-System/
+- ⚡ Live Energy Monitoring
+- 📊 Interactive Dashboard
+- 📈 Real-Time Energy Trend Graphs
+- 🏢 Building-wise Energy Consumption
+- 🚨 Automatic Anomaly Detection
+- 🔔 Recent Alert Notifications
+- 📉 Energy Health Score
+- 🔄 Auto Refresh Dashboard
+- 🗄 Historical Data Storage
+- 📋 Smart Reporting Interface
+
+---
+
+# 🏗 System Architecture
+
+```
+                Generator
+
+                    │
+
+                    ▼
+
+          FastAPI Backend API
+
+                    │
+
+        ┌───────────┴───────────┐
+
+        ▼                       ▼
+
+ PostgreSQL Database      Detection Engine
+
+        │                       │
+
+        └───────────┬───────────┘
+
+                    ▼
+
+          Interactive Dashboard
+
+          (HTML • CSS • JS)
+
+                    │
+
+                    ▼
+
+            Charts • Alerts
+
+          Building Monitoring
+```
+
+---
+
+# 💻 Technology Stack
+
+| Category | Technologies |
+|----------|--------------|
+| Backend | FastAPI, Python |
+| Frontend | HTML5, CSS3, JavaScript |
+| Database | PostgreSQL |
+| Visualization | Chart.js |
+| IDE | Visual Studio Code |
+| Version Control | Git, GitHub |
+
+---
+
+# 📂 Project Structure
+
+```
+Smart-Campus-Energy-Monitoring-System
 │
 ├── templates/
-│   └── index.html
+│     └── index.html
 │
 ├── screenshots/
-│   ├── Dashboard.png
-│   ├── Energy building.png
-│   ├── Energy chart.png
-│   └── Recent alerts.png
+│     ├── Dashboard.png
+│     ├── Energy building.png
+│     ├── Energy chart.png
+│     └── Recent alerts.png
 │
 ├── database.py
 ├── detection.py
@@ -71,53 +121,107 @@ Smart-Campus-Energy-Monitoring-System/
 
 ---
 
-## 🚀 Installation
+# 🖥 Dashboard Preview
 
-### 1. Clone the Repository
+<p align="center">
+
+<img src="screenshots/Dashboard.png" width="100%">
+
+</p>
+
+---
+
+# 📸 Application Screens
+
+## Dashboard
+
+<img src="screenshots/Dashboard.png">
+
+Displays system status, energy statistics, KPI cards, and live monitoring information.
+
+---
+
+## Energy Trend
+
+<img src="screenshots/Energy%20chart.png">
+
+Visual representation of energy consumption over time.
+
+---
+
+## Building Monitoring
+
+<img src="screenshots/Energy%20building.png">
+
+Displays power consumption across different campus buildings.
+
+---
+
+## Recent Alerts
+
+<img src="screenshots/Recent%20alerts.png">
+
+Shows automatically detected abnormal energy usage events.
+
+---
+
+# ⚙ Installation
+
+## Clone Repository
 
 ```bash
 git clone https://github.com/tirupathiraog/Smart_Campus-Energy-Monitoring-System.git
 ```
 
-### 2. Navigate to the Project
+---
+
+## Navigate
 
 ```bash
 cd Smart_Campus-Energy-Monitoring-System
 ```
 
-### 3. Create Virtual Environment
+---
+
+## Create Virtual Environment
 
 ```bash
 python -m venv venv
 ```
 
-### 4. Activate Virtual Environment
+---
 
-#### Windows
+## Activate
+
+Windows
 
 ```bash
 venv\Scripts\activate
 ```
 
-#### Linux / macOS
+Linux
 
 ```bash
 source venv/bin/activate
 ```
 
-### 5. Install Dependencies
+---
+
+## Install Packages
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 6. Run the Application
+---
+
+## Run Server
 
 ```bash
 uvicorn main:app --reload
 ```
 
-The application will be available at:
+Open
 
 ```
 http://127.0.0.1:8000
@@ -125,88 +229,147 @@ http://127.0.0.1:8000
 
 ---
 
-## 📸 Screenshots
+# 🔗 API Endpoints
 
-### 🖥️ Dashboard
-
-![Dashboard](screenshots/Dashboard.png)
-
-The dashboard provides a complete overview of the Smart Campus Energy Monitoring System, displaying live status, key metrics, and real-time energy information.
-
----
-
-### 📈 Energy Trend Chart
-
-![Energy Trend](screenshots/Energy%20chart.png)
-
-The energy trend chart visualizes power consumption over time, helping identify energy usage patterns and sudden spikes.
+| Endpoint | Method | Description |
+|-----------|--------|-------------|
+| / | GET | Dashboard |
+| /upload | POST | Upload energy reading |
+| /summary | GET | Dashboard summary |
+| /energy/history | GET | Energy trend data |
+| /alerts | GET | Recent alerts |
+| /block/summary | GET | Building energy statistics |
 
 ---
 
-### 🏢 Building Energy Monitoring
+# 🔄 System Workflow
 
-![Building Monitoring](screenshots/Energy%20building.png)
+```
+Energy Generator
 
-This section shows building-wise energy consumption, allowing administrators to compare energy usage across different campus buildings.
+        │
 
----
+        ▼
 
-### 🚨 Recent Alerts
+FastAPI Receives Data
 
-![Recent Alerts](screenshots/Recent%20alerts.png)
+        │
 
-Recent alerts display abnormal energy consumption detected by the system, enabling quick identification of potential issues.
+        ▼
 
----
+PostgreSQL Storage
 
-## ⚙️ System Workflow
+        │
 
-1. Generate energy consumption data.
-2. Store readings in PostgreSQL.
-3. Detect abnormal energy usage.
-4. Generate alerts automatically.
-5. Display live information on the dashboard.
-6. Monitor building-wise energy consumption.
-7. Visualize trends using interactive charts.
+        ▼
 
----
+Detection Engine
 
-## 🎯 Project Objectives
+        │
 
-- Monitor campus energy consumption in real time.
-- Detect unusual energy usage automatically.
-- Provide interactive dashboards for analysis.
-- Improve awareness of energy utilization.
-- Support efficient campus energy management.
+        ▼
 
----
+Generate Alerts
 
-## 🔮 Future Enhancements
+        │
 
-- AI-based energy consumption prediction
-- Email and SMS notifications
-- Mobile application
-- Cloud deployment (AWS/Azure)
-- User authentication and role management
-- Monthly energy reports
-- Energy forecasting using Machine Learning
+        ▼
+
+Dashboard Updates
+
+        │
+
+        ▼
+
+Administrator Monitoring
+```
 
 ---
 
-## 👨‍💻 Author
+# 🎯 Project Objectives
 
-**Tirupathi Rao G**
-
-Master of Computer Applications (MCA)
-
----
-
-## 🤝 Contributions
-
-Contributions, suggestions, and improvements are welcome. Feel free to fork the repository and submit a pull request.
+- Monitor campus electricity usage in real time.
+- Detect abnormal power consumption automatically.
+- Improve energy management using visualization.
+- Support decision-making with analytical insights.
+- Reduce unnecessary energy wastage.
 
 ---
 
-## 📄 License
+# 🔮 Future Scope
 
-This project was developed for educational purposes as part of an MCA academic project.
+- Artificial Intelligence-based prediction
+- Machine Learning anomaly detection
+- SMS & Email Notifications
+- Mobile Application
+- Role-Based Authentication
+- Cloud Deployment (AWS/Azure)
+- IoT Smart Meter Integration
+- Energy Forecasting
+
+---
+
+---
+
+# 👨‍💻 Author
+
+<table>
+<tr>
+<td>
+
+### Tirupathi Rao
+
+**Master of Computer Applications (MCA)**
+**Dr. Lankapalli Bullayya College**
+**Visakhapatnam, Andhra Pradesh**
+
+Passionate about developing scalable web applications, cloud technologies, and data-driven solutions. This project demonstrates practical implementation of real-time energy monitoring, anomaly detection, interactive dashboards, and modern backend development using FastAPI and PostgreSQL.
+
+📧 **Email:** tirulesnar.com
+
+🔗 **GitHub:** https://github.com/tirupathiraog
+
+🔗 **LinkedIn:** www.linkedin.com/in/tirupathiraog
+
+</td>
+</tr>
+</table>
+
+---
+
+# 📄 License
+
+This project is released for **educational and academic purposes**.
+
+You are welcome to explore, study, and reference the source code for learning and non-commercial use. If you build upon this project, appropriate attribution is appreciated.
+
+---
+
+## 🤝 Contributing
+
+Contributions, suggestions, and feature improvements are always welcome.
+
+If you would like to contribute:
+
+- Fork this repository
+- Create a new feature branch
+- Commit your changes
+- Submit a Pull Request
+
+---
+
+## 🌟 Support
+
+If you found this project helpful, please consider giving it a ⭐ on GitHub.
+
+Your support helps increase the visibility of the project and encourages further development.
+
+---
+
+<p align="center">
+
+**Thank you for visiting this repository!**
+
+Made with ❤️ using **Python**, **FastAPI**, **PostgreSQL**, and **Chart.js**
+
+</p>
