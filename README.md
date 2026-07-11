@@ -309,15 +309,13 @@ Administrator Monitoring
 
 ---
 
----
-
 # 👨‍💻 Author
 
 <table>
 <tr>
 <td>
 
-### Tirupathi Rao
+### Tirupathi Rao Guggilapu 
 
 **Master of Computer Applications (MCA)**
 **Dr. Lankapalli Bullayya College**
