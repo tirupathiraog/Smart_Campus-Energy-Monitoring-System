@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Campus Energy Monitoring System</title>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --bg:#020817;
+    --card:#0f172a;
+    --border:#1e293b;
+
+    --green:#22c55e;
+    --blue:#3b82f6;
+    --orange:#f59e0b;
+    --red:#ef4444;
+
+    --text:#f8fafc;
+    --muted:#94a3b8;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    padding:25px;
+}
+
+/* NAVBAR */
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+
+    background:var(--card);
+    border:1px solid var(--border);
+
+    padding:20px 25px;
+    border-radius:14px;
+
+    margin-bottom:25px;
+}
+
+.header-left{
+    width:35%;
+}
+
+.system-live{
+    color:var(--green);
+    font-size:12px;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:700;
+    color:white;
+}
+
+.logo span{
+    color:var(--green);
+}
+
+.subtitle{
+    margin-top:5px;
+    color:var(--muted);
+    font-size:14px;
+}
+
+.nav-links{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+
+    display:flex;
+    gap:40px;
+}
+
+.nav-links a{
+    color:var(--muted);
+    text-decoration:none;
+}
+
+.nav-links a:hover{
+    color:white;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.time-box{
+    color:white;
+    font-weight:600;
+}
+
+.alert-badge{
+    background:#ef4444;
+    color:white;
+
+    padding:6px 12px;
+    border-radius:20px;
+
+    font-size:12px;
+    font-weight:600;
+}
+
+.refresh-btn{
+    background:transparent;
+    color:white;
+
+    border:1px solid var(--border);
+    border-radius:8px;
+
+    padding:8px 14px;
+    cursor:pointer;
+}
+
+/* KPI CARDS */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    margin-bottom:25px;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+
+    padding:25px;
+    border-radius:14px;
+}
+
+.card h2{
+    font-size:32px;
+    margin-bottom:8px;
+}
+
+.card p{
+    color:var(--muted);
+}
+
+/* FILTERS */
+
+.filters{
+    background:var(--card);
+    border:1px solid var(--border);
+
+    padding:20px;
+    border-radius:14px;
+
+    margin-bottom:25px;
+}
+
+.filter-row{
+    display:flex;
+    gap:15px;
+    margin-top:15px;
+}
+
+.filter-row select,
+.filter-row input{
+    flex:1;
+    padding:12px;
+
+    background:#111827;
+    color:white;
+
+    border:1px solid var(--border);
+    border-radius:8px;
+}
+
+/* MAIN */
+
+.main{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+
+    margin-bottom:25px;
+}
+
+/* CHART */
+
+.chart-box{
+    background:var(--card);
+    border:1px solid var(--border);
+
+    border-radius:14px;
+    padding:20px;
+
+    min-height:400px;
+}
+
+/* ALERTS */
+
+.alert-box{
+    background:var(--card);
+    border:1px solid var(--border);
+
+    border-radius:14px;
+    padding:20px;
+}
+
+.alert{
+    padding:15px;
+    border-radius:10px;
+    margin-top:12px;
+}
+
+.high{
+    background:rgba(239,68,68,.15);
+    border-left:4px solid var(--red);
+}
+
+.medium{
+    background:rgba(245,158,11,.15);
+    border-left:4px solid var(--orange);
+}
+
+.low{
+    background:rgba(34,197,94,.15);
+    border-left:4px solid var(--green);
+}
+
+/* BUILDINGS */
+
+.sources{
+    background:var(--card);
+    border:1px solid var(--border);
+
+    border-radius:14px;
+    padding:20px;
+}
+
+.source-card{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:20px;
+    margin-top:15px;
+
+    border:1px solid var(--border);
+    border-radius:12px;
+
+    background:#111827;
+}
+
+.source-left h3{
+    margin-bottom:5px;
+}
+
+.source-left p{
+    color:var(--muted);
+}
+
+.badge{
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.badge-green{
+    background:rgba(34,197,94,.15);
+    color:var(--green);
+}
+
+.badge-orange{
+    background:rgba(245,158,11,.15);
+    color:var(--orange);
+}
+
+.badge-red{
+    background:rgba(239,68,68,.15);
+    color:var(--red);
+}
+
+.progress{
+    width:150px;
+    height:8px;
+    background:#1f2937;
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:8px;
+}
+
+.fill{
+    height:100%;
+    background:var(--green);
+}
+
+.section-title{
+    margin-bottom:15px;
+    font-size:20px;
+}
+
+@media(max-width:1000px){
+
+.cards{
+    grid-template-columns:1fr 1fr;
+}
+
+.main{
+    grid-template-columns:1fr;
+}
+
+.source-card{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:15px;
+}
+
+}
+
+.analytics-grid{
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    margin-top:20px;
+
+}
+
+.analytics-card{
+
+    background:#111827;
+    border:1px solid #1e293b;
+    border-radius:12px;
+    padding:25px;
+    text-align:center;
+
+}
+
+.analytics-card h4{
+
+    color:#94a3b8;
+    margin-bottom:15px;
+
+}
+
+.analytics-card h2{
+
+    font-size:34px;
+    color:#22c55e;
+    margin-bottom:10px;
+
+}
+
+.analytics-card p{
+
+    color:#94a3b8;
+
+}
+
+/* ==============================
+   HIGH ALERT POPUP
+============================== */
+
+.alert-popup{
+
+    position:fixed;
+
+    top:20px;
+    right:-450px;
+
+    width:360px;
+
+    background:#2b0b0b;
+
+    border:2px solid #ff3b3b;
+
+    border-radius:14px;
+
+    box-shadow:0 0 25px rgba(255,0,0,.55);
+
+    z-index:99999;
+
+    transition:.5s;
+
+    color:#fff;
+
+    overflow:hidden;
+
+}
+
+.alert-popup.show{
+
+    right:20px;
+
+}
+
+.alert-header{
+
+    background:#ff3b3b;
+
+    color:#fff;
+
+    padding:15px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    text-align:center;
+
+}
+
+.alert-body{
+
+    padding:18px;
+
+}
+
+.alert-body p{
+
+    margin:10px 0;
+
+    font-size:15px;
+
+}
+
+.alert-body strong{
+
+    color:#ffb3b3;
+
+}
+
+
+.close-alert{
+
+    float:right;
+    cursor:pointer;
+
+    font-size:18px;
+
+    color:white;
+
+    transition:.3s;
+
+}
+
+.close-alert:hover{
+
+    color:#ffd1d1;
+    transform:scale(1.2);
+
+}
+/* ============================
+   ALERT DROPDOWN
+============================ */
+
+.header-right{
+    position:relative;
+}
+
+.history-panel{
+
+    position:absolute;
+
+    top:45px;
+
+    right:0;
+
+    width:700px;          /* Increased from 380px */
+
+    max-height:500px;
+
+    background:#0f172a;
+
+    border:1px solid #1e293b;
+
+    border-radius:12px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.45);
+
+    overflow-y:auto;
+
+    overflow-x:hidden;    /* Removes horizontal scrollbar */
+
+    display:none;
+
+    z-index:9999;
+
+}
+.history-panel.show{
+
+    display:block;
+
+}
+
+.history-header{
+
+    padding:15px;
+
+    background:#ef4444;
+
+    color:white;
+
+    font-weight:600;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.history-item{
+
+    padding:14px;
+
+    border-bottom:1px solid #1e293b;
+
+}
+
+.history-item:last-child{
+
+    border-bottom:none;
+
+}
+
+.history-item:hover{
+
+    background:#111827;
+
+}
+
+/* ============================
+   HISTORY TABLE
+============================ */
+
+.history-table{
+
+    width:100%;
+
+    min-width:680px;
+
+    border-collapse:collapse;
+
+    color:white;
+
+    font-size:14px;
+
+}
+
+.history-table thead{
+
+    position:sticky;
+
+    top:0;
+
+    background:#111827;
+
+}
+
+.history-table th{
+
+    padding:14px 18px;
+
+    text-align:left;
+
+    color:#94a3b8;
+
+    border-bottom:1px solid #334155;
+
+}
+
+.history-table td{
+
+    padding:14px 18px;
+
+    border-bottom:1px solid #1e293b;
+
+    vertical-align:middle;
+
+}
+
+.history-table tbody tr:hover{
+
+    background:#111827;
+
+}
+
+.status-active{
+
+    color:#ef4444;
+
+    font-weight:600;
+
+}
+
+.status-ack{
+
+    color:#22c55e;
+
+    font-weight:600;
+
+}
+
+.ack-btn{
+
+    background:#22c55e;
+    color:white;
+
+    border:none;
+
+    padding:6px 12px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.ack-btn:hover{
+
+    background:#16a34a;
+
+}
+
+.report-actions{
+    margin-top:20px;
+    text-align:center;
+}
+
+.download-btn{
+    display:inline-block;
+    background:#0F4C81;
+    color:#fff;
+    padding:14px 28px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:600;
+    font-size:16px;
+    transition:.3s;
+    box-shadow:0 4px 12px rgba(15,76,129,.25);
+}
+
+.download-btn:hover{
+    background:#1565C0;
+    transform:translateY(-2px);
+    box-shadow:0 8px 18px rgba(15,76,129,.35);
+}
+
+.footer{
+    margin-top:80px;
+    background:#111827;
+    color:#fff;
+    padding:60px 8%;
+    border-top-left-radius:30px;
+    border-top-right-radius:30px;
+}
+.footer-container{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1.5fr;
+    gap:50px;
+}
+
+.footer-col h2{
+    font-size:30px;
+    margin-bottom:20px;
+}
+
+.footer-col h3{
+    margin-bottom:18px;
+    color:#22c55e;
+}
+
+.footer-col p{
+    color:#cbd5e1;
+    line-height:1.8;
+}
+
+.footer-col a{
+    display:block;
+    color:#cbd5e1;
+    text-decoration:none;
+    margin:10px 0;
+    transition:.3s;
+}
+
+.footer-col a:hover{
+    color:#22c55e;
+    padding-left:8px;
+}
+
+.social-links{
+    margin-top:25px;
+}
+
+.social-links a{
+    display:inline-flex;
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    align-items:center;
+    justify-content:center;
+    background:#1e293b;
+    color:#fff;
+    margin-right:10px;
+    font-size:20px;
+}
+
+.social-links a:hover{
+    background:#22c55e;
+    transform:translateY(-5px);
+}
+
+.footer-bottom{
+    border-top:1px solid rgba(255,255,255,.1);
+    margin-top:40px;
+    padding-top:25px;
+    text-align:center;
+    color:#94a3b8;
+}
+
+@media(max-width:900px){
+
+.footer-container{
+    grid-template-columns:1fr;
+    gap:35px;
+}
+
+.footer{
+    text-align:center;
+}
+
+.social-links{
+    justify-content:center;
+}
+}
+
+.footer-col{
+    transition:.35s;
+}
+
+.footer-col:hover{
+    transform:translateY(-6px);
+}
+</style>
+</head>
+
+<body>
+
+<div id="alertPopup" class="alert-popup">
+
+    <div class="alert-header">
+
+        🚨 HIGH USAGE ALERT
+
+        <span class="close-alert"
+              onclick="closeHighAlert()">
+            ✖
+        </span>
+
+    </div>
+
+
+    <div class="alert-body">
+
+        <p><strong>Building:</strong>
+            <span id="popupBuilding"></span>
+        </p>
+
+        <p><strong>Room:</strong>
+            <span id="popupRoom"></span>
+        </p>
+
+        <p><strong>Power:</strong>
+            <span id="popupPower"></span> kWh
+        </p>
+
+        <p><strong>Time:</strong>
+            <span id="popupTime"></span>
+        </p>
+        <p>
+    <strong style="color:#ef4444;">
+        🔴 Active Alerts:
+    </strong>
+
+    <span id="popupActiveCount">0</span>
+
+</p>
+
+        <p style="color:#ff8080;font-weight:bold;">
+            ⚠ Immediate attention required.
+        </p>
+
+
+    </div>
+
+    </div>
+
+
+<!-- HEADER -->
+
+<div class="navbar">
+
+    <!-- LEFT -->
+
+    <div class="header-left">
+
+        <div class="system-live">
+            ● SYSTEM LIVE
+        </div>
+
+        <div class="logo">
+            Smart Campus <span>Energy</span> Monitoring System
+        </div>
+
+        <div class="subtitle">
+            Real-time monitoring & risk detection
+        </div>
+
+    </div>
+
+    <!-- CENTER -->
+
+   <div class="nav-links">
+    <a href="/dashboard">Dashboard</a>
+    <a href="/about">About us</a>
+    <a href="#analytics">Analytics</a>
+    <a href="#buildings">Buildings</a>
+    <a href="#reports">Reports</a>
+</div>
+
+    <!-- RIGHT -->
+
+    <div class="header-right">
+
+        <div class="time-box" id="liveTime">
+            07:18 PM
+        </div>
+<div id="alertWrapper">
+
+    <div class="alert-badge"
+         id="alertBadge"
+         onclick="toggleHistory()"
+         style="cursor:pointer;user-select:none;">
+
+        🔴 <span id="alertCount">0</span> Alerts
+        <span id="alertArrow">▼</span>
+
+    </div>
+
+    <div id="historyPanel" class="history-panel">
+
+        <div class="history-header">
+
+            <span>High Alert History</span>
+
+            <span class="close-alert"
+                  onclick="event.stopPropagation(); closeHistory();">
+                ✖
+            </span>
+
+        </div>
+
+       <div id="historyContainer">
+
+    <table class="history-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Time</th>
+                <th>Building</th>
+                <th>Room</th>
+                <th>Power</th>
+                <th>Status</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="historyBody">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+    </div>
+
+</div>
+       <button class="refresh-btn" onclick="refreshDashboard()">
+    ↻ Refresh
+</button>
+
+    </div>
+
+</div>
+
+<!-- KPI CARDS -->
+
+<div id="dashboard" class="cards">
+
+    <div class="card">
+        <h2 id="totalReadings">0</h2>
+        <p>Total Readings</p>
+    </div>
+
+    <div class="card">
+        <h2 id="totalAlerts">0</h2>
+        <p>Total Alerts</p>
+    </div>
+
+    <div class="card">
+        <h2 id="totalBuildings">0</h2>
+        <p>Buildings Monitored</p>
+    </div>
+
+    <div class="card">
+        <h2 id="healthScore">--</h2>
+        <p>Energy Health Score</p>
+    </div>
+
+</div>
+
+<!-- FILTERS -->
+
+<div class="filters">
+
+    <h3>Energy Filters</h3>
+
+    <div class="filter-row">
+
+        <input type="datetime-local" id="dateFilter">
+
+        <select id="buildingFilter" onchange="loadBuildings()">
+    <option value="All">All Buildings</option>
+</select>
+
+        <select id="alertFilter" onchange="loadBuildings()">
+    <option value="All">All Alerts</option>
+    <option value="High Usage">High Usage</option>
+    <option value="Moderate Spike">Moderate Spike</option>
+</select>
+
+    </div>
+
+</div>
+
+<!-- MAIN -->
+
+<div id="analytics" class="main">
+
+    <div class="chart-box">
+
+        <h3 class="section-title">
+            Energy Usage Trend
+        </h3>
+
+        <canvas id="energyChart"></canvas>
+
+    </div>
+    <div class="alert-box">
+
+          <h3 class="section-title">
+        Recent Alerts
+         </h3>
+
+         <div id="alertsContainer"></div>
+
+         </div>
+
+   
+</div>
+
+</div>
+
+<!-- ANALYTICS -->
+
+<section id="analyticsCards" class="sources">
+
+    <h3 class="section-title">
+        📊 Energy Analytics
+    </h3>
+
+    <div class="analytics-grid">
+
+        <div class="analytics-card">
+            <h4>Today's Usage</h4>
+            <h2 id="todayUsage">0</h2>
+            <p>kWh</p>
+        </div>
+
+        <div class="analytics-card">
+            <h4>This Week</h4>
+            <h2 id="weekUsage">0</h2>
+            <p>kWh</p>
+        </div>
+
+        <div class="analytics-card">
+            <h4>This Month</h4>
+            <h2 id="monthUsage">0</h2>
+            <p>kWh</p>
+        </div>
+
+        <div class="analytics-card">
+            <h4>Average Usage</h4>
+            <h2 id="averageUsage">0</h2>
+            <p>kWh</p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="sources">
+
+    <h3 class="section-title">
+        🏢 Building Energy Comparison
+    </h3>
+
+    <canvas id="buildingChart" height="120"></canvas>
+
+</section>
+
+
+<!-- BUILDINGS -->
+
+<div id="buildings" class="sources">
+
+    <h3 class="section-title">
+        Energy Monitoring Sources
+    </h3>
+
+    <div id="sourcesContainer"></div>
+
+</div>
+
+<div id="reports" class="sources">
+
+    <h3 class="section-title">
+        <div class="report-actions">
+
+    <a href="/download/excel" class="download-btn">
+        📥 Download Excel Report
+    </a>
+
+</div>
+    </h3>
+
+    <p style="color:#94a3b8;">
+       
+    </p>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+let lastHighAlert = "";
+let dismissedHighAlert =
+    localStorage.getItem("dismissedHighAlert") || "";
+
+let energyChart;
+let buildingChart;
+async function loadChart() {
+
+    try {
+
+        const selectedBuilding =
+    document.getElementById("buildingFilter").value;
+
+const response =
+    await fetch(
+        "http://127.0.0.1:8000/energy/history?building=" +
+        encodeURIComponent(selectedBuilding)
+    );
+
+    const data = await response.json();
+
+        const labels = data
+            .slice()
+            .reverse()
+            .map(item =>
+                new Date(item.timestamp).toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })
+            );
+
+        const values = data
+            .slice()
+            .reverse()
+            .map(item => item.power_kwh);
+
+        if (energyChart) {
+            energyChart.destroy();
+        }
+
+        energyChart = new Chart(
+            document.getElementById('energyChart'),
+            {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Energy Usage (kWh)',
+                        data: values,
+                        borderColor: '#22c55e',
+                        backgroundColor: 'rgba(34,197,94,.15)',
+                        fill: true,
+                        tension: .4
+                    }]
+                }
+            }
+        );
+
+    } catch(error) {
+        console.error("Chart Error:", error);
+    }
+}
+
+loadChart();
+
+async function loadBuildingChart() {
+
+    try {
+
+   const building =
+    document.getElementById("buildingFilter").value;
+
+ const response =
+            await fetch(
+                      "http://127.0.0.1:8000/analytics/buildings?building=" +
+                       encodeURIComponent(building)
+    );
+
+        const data = await response.json();
+
+        const labels = data.map(item => item.building);
+        const values = data.map(item => item.total);
+
+        if (buildingChart) {
+            buildingChart.destroy();
+        }
+
+        const ctx =
+            document.getElementById("buildingChart").getContext("2d");
+
+        buildingChart = new Chart(ctx, {
+
+            type: "bar",
+
+            data: {
+
+                labels: labels,
+
+                datasets: [{
+
+                    label: "Total Energy (kWh)",
+
+                    data: values,
+
+                    borderWidth: 1
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                indexAxis: 'y',
+
+                plugins: {
+
+                    legend: {
+                        display: false
+                    }
+
+                },
+
+                scales: {
+
+                    x: {
+                        beginAtZero: true
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+    catch(error) {
+
+        console.error("Building Chart Error:", error);
+
+    }
+
+}
+
+</script>
+<script>
+
+async function loadSummary() {
+
+    try {
+
+        const response =
+            await fetch("http://127.0.0.1:8000/summary");
+
+        const data = await response.json();
+
+        document.getElementById("totalReadings")
+            .innerText = data.total_readings;
+
+        document.getElementById("totalAlerts")
+            .innerText = data.total_alerts;
+
+        const activeResponse = await fetch(
+                                "http://127.0.0.1:8000/active-alerts"
+                     );
+
+       const activeData = 
+                             await activeResponse.json();
+
+       document.getElementById("alertCount").innerText =
+                           activeData.active_alerts;
+
+        let score = 95;
+
+        if (data.current_risk === "MEDIUM") {
+            score = 75;
+        }
+
+        if (data.current_risk === "HIGH") {
+            score = 40;
+        }
+
+        document.getElementById("healthScore")
+            .innerText = score + "%";
+
+    } catch(error) {
+        console.error("Summary Error:", error);
+    }
+}
+
+loadSummary();
+
+async function loadAnalytics() {
+
+    try {
+
+       const building =
+                 document.getElementById("buildingFilter").value;
+
+  const response =
+              await fetch(
+                        "http://127.0.0.1:8000/analytics?building=" +
+                         encodeURIComponent(building)
+              );
+
+        const data = await response.json();
+
+        document.getElementById("todayUsage").innerText =
+            data.today.toFixed(2);
+
+        document.getElementById("weekUsage").innerText =
+            data.week.toFixed(2);
+
+        document.getElementById("monthUsage").innerText =
+            data.month.toFixed(2);
+
+        document.getElementById("averageUsage").innerText =
+            data.average.toFixed(2);
+
+    } catch(error) {
+
+        console.error("Analytics Error:", error);
+
+    }
+
+}
+
+
+async function loadAlerts(selectedBuilding = "All") {
+
+    try {
+
+        const response =
+            await fetch("http://127.0.0.1:8000/alerts");
+
+        const alerts = await response.json();
+
+        console.log("Total Alerts:", alerts.length);
+
+        console.log("High Usage:", alerts.filter(a => a.alert_type === "High Usage").length);
+
+        const selectedAlert =
+            document.getElementById("alertFilter").value;
+
+        let filteredAlerts = alerts;
+
+        if (selectedBuilding !== "All") {
+
+            filteredAlerts = filteredAlerts.filter(alert =>
+                alert.building.trim() === selectedBuilding.trim()
+            );
+        }
+
+        if (selectedAlert !== "All") {
+
+            filteredAlerts = filteredAlerts.filter(alert =>
+                alert.alert_type === selectedAlert
+            );
+        }
+
+        const container =
+            document.getElementById("alertsContainer");
+
+        container.innerHTML = "";
+if (filteredAlerts.length === 0) {
+
+    container.innerHTML =
+        "<div class='alert low'>No Alerts Found</div>";
+
+    return;
+}
+
+        filteredAlerts.slice(0, 5).forEach(alert => {
+
+            let cssClass = "low";
+
+            if (alert.risk_score >= 70) {
+                cssClass = "high";
+            }
+            else if (alert.risk_score >= 40) {
+                cssClass = "medium";
+            }
+
+            container.innerHTML += `
+<div class="alert ${cssClass}">
+    <strong>${alert.alert_type}</strong><br>
+    ${alert.building}<br>
+    Power: ${Number(alert.power_kwh).toFixed(2)} kWh<br>
+    Risk Score: ${alert.risk_score}
+</div>
+            `;
+     });
+
+const latestHighAlert = filteredAlerts.find(
+    alert =>
+        alert.alert_type === "High Usage" &&
+        !alert.acknowledged
+);
+
+if (
+    latestHighAlert &&
+    latestHighAlert.timestamp !== lastHighAlert &&
+    latestHighAlert.timestamp !== dismissedHighAlert
+) {
+
+    lastHighAlert = latestHighAlert.timestamp;
+
+    showHighAlert(latestHighAlert);
+
+}
+
+    } catch(error) {
+        console.error("Alerts Error:", error);
+    }
+}
+
+loadAlerts();
+
+function showHighAlert(alert){
+
+    const popup =
+        document.getElementById("alertPopup");
+    
+    document.getElementById("popupBuilding").innerText =
+        alert.building;
+
+    document.getElementById("popupRoom").innerText =
+        alert.room;
+
+    document.getElementById("popupPower").innerText =
+        Number(alert.power_kwh).toFixed(2);
+
+    document.getElementById("popupTime").innerText =
+        new Date(alert.timestamp).toLocaleTimeString();
+
+fetch("http://127.0.0.1:8000/active-alerts")
+.then(res => res.json())
+.then(data => {
+
+    document.getElementById("popupActiveCount").innerText =
+        data.active_alerts;
+
+});
+
+    popup.classList.add("show");
+}
+
+function closeHighAlert(){
+
+    if(lastHighAlert){
+
+        localStorage.setItem(
+            "dismissedHighAlert",
+            lastHighAlert
+        );
+
+    }
+
+    document
+        .getElementById("alertPopup")
+        .classList.remove("show");
+
+}
+
+function actionTaken(){
+
+    acknowledgedAlert = lastHighAlert;
+
+    localStorage.setItem(
+        "acknowledgedAlert",
+        acknowledgedAlert
+    );
+
+    document
+        .getElementById("alertPopup")
+        .classList.remove("show");
+
+}
+
+function closeHistory(){
+
+    const panel = document.getElementById("historyPanel");
+    const arrow = document.getElementById("alertArrow");
+
+    panel.classList.remove("show");
+    arrow.innerText = "▼";
+
+}
+
+function toggleHistory(){
+
+    const panel =
+        document.getElementById("historyPanel");
+
+    const arrow =
+        document.getElementById("alertArrow");
+
+    panel.classList.toggle("show");
+
+    if(panel.classList.contains("show")){
+
+        arrow.innerText = "▲";
+
+        loadHistory();
+
+    }
+    else{
+
+        arrow.innerText = "▼";
+
+    }
+
+}
+
+
+
+async function loadHistory() {
+
+    try {
+
+        const response =
+            await fetch("http://127.0.0.1:8000/alerts");
+
+        const alerts = await response.json();
+
+     const body =
+    document.getElementById("historyBody");
+
+body.innerHTML = "";
+
+alerts
+    .filter(alert => alert.alert_type === "High Usage")
+    .slice(0, 50)
+    .forEach(alert => {
+
+        const acknowledged = alert.acknowledged;
+
+        body.innerHTML += `
+
+<tr>
+
+    <td>
+        ${new Date(alert.timestamp).toLocaleTimeString([],{
+            hour:"2-digit",
+            minute:"2-digit"
+        })}
+    </td>
+
+    <td>${alert.building}</td>
+
+    <td>${alert.room}</td>
+
+    <td>${Number(alert.power_kwh).toFixed(2)} kWh</td>
+
+    <td>
+
+${
+    acknowledged
+
+    ?
+
+    `<span class="status-ack">
+        🟢 Acknowledged
+    </span>`
+
+    :
+
+    `<span class="status-active">
+        🔴 Active
+    </span>
+
+    <br><br>
+
+    <button
+        onclick="acknowledgeAlert(${alert.id})"
+        class="ack-btn">
+
+        ✓ Acknowledge
+
+    </button>`
+}
+
+</td>
+
+</tr>
+
+`;
+
+    });
+    } catch (error) {
+
+        console.error("History Error:", error);
+
+    }
+
+}
+
+async function acknowledgeAlert(id){
+
+    try{
+
+        await fetch(
+            `http://127.0.0.1:8000/acknowledge/${id}`,
+            {
+                method:"POST"
+            }
+        );
+
+        loadHistory();
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+async function loadBuildings() {
+
+    try {
+
+        const response =
+            await fetch("http://127.0.0.1:8000/block/summary");
+
+        const buildings = await response.json();
+console.log(buildings);
+console.log("Count:", buildings.length);
+const filter =
+    document.getElementById("buildingFilter");
+
+if (filter.options.length === 1) {
+
+    buildings.forEach(building => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = building.building;
+        option.textContent = building.building;
+
+        filter.appendChild(option);
+    });
+}
+
+
+
+const selectedBuilding = filter.value.trim();
+
+
+loadChart();
+loadAlerts(selectedBuilding);
+loadAnalytics();  
+loadBuildingChart();     // <-- Add this line
+
+console.log("Selected:", selectedBuilding);
+buildings.forEach(b => {
+    console.log("API:", "[" + b.building + "]");
+});
+
+        document.getElementById("totalBuildings")
+                    .innerText = buildings.length;
+
+        const container =
+            document.getElementById("sourcesContainer");
+
+   container.innerHTML = "";
+
+buildings
+.filter(building =>
+    selectedBuilding === "All" ||
+    building.building.trim() === selectedBuilding.trim()
+)
+
+.forEach(building => {
+
+    let badge = "NORMAL";
+    let badgeClass = "badge-green";
+    let width = Math.min(building.power_kwh, 100);
+
+    if (building.power_kwh >= 50) {
+        badge = "HIGH";
+        badgeClass = "badge-red";
+    }
+    else if (building.power_kwh >= 20) {
+        badge = "MEDIUM";
+        badgeClass = "badge-orange";
+    }
+
+    container.innerHTML += `
+    <div class="source-card">
+
+        <div class="source-left">
+            <h3>${building.building}</h3>
+            <p>${building.room}</p>
+
+            <div class="progress">
+                <div class="fill" style="width:${width}%"></div>
+            </div>
+        </div>
+
+        <div>
+            <strong>${building.power_kwh} kWh</strong><br><br>
+            <span class="badge ${badgeClass}">
+                ${badge}
+            </span>
+        </div>
+
+    </div>
+    `;
+});
+   
+
+    } catch(error) {
+        console.error("Buildings Error:", error);
+    }
+}
+
+loadSummary();
+loadAnalytics();
+loadAlerts();
+loadBuildings();
+loadChart();
+loadBuildingChart();
+
+
+setInterval(loadSummary, 30000);
+setInterval(loadAnalytics, 30000);
+setInterval(loadAlerts, 30000);
+setInterval(loadBuildings, 30000);
+setInterval(loadChart, 30000);
+setInterval(loadBuildingChart, 30000);
+
+function updateTime() {
+
+    const now = new Date();
+
+    const time = now.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+    });
+
+    document.getElementById("liveTime").innerText = time;
+}
+
+updateTime();
+
+setInterval(updateTime, 1000);
+
+document.addEventListener("click", function(e){
+
+    const wrapper =
+        document.getElementById("alertWrapper");
+
+    const panel =
+        document.getElementById("historyPanel");
+
+    if(
+        wrapper &&
+        !wrapper.contains(e.target)
+    ){
+
+        panel.classList.remove("show");
+
+        document
+            .getElementById("alertArrow")
+            .innerText = "▼";
+
+    }
+
+});
+
+function refreshDashboard() {
+    location.reload();
+}
+
+</script>
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <div class="footer-col">
+            <h2>
+<i class="fas fa-bolt"></i>
+Smart Campus<br>
+Energy Monitoring
+</h2>
+
+            <p>
+                Real-time campus energy monitoring and intelligent
+                risk detection for efficient power management.
+            </p>
+
+            <div class="social-links">
+                <a href="https://github.com/tirupathiraog"><i class="fab fa-github"></i></a>
+                <a href="www.linkedin.com/in/tirupathiraog"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-col">
+            <h3>Quick Links</h3>
+
+            <a href="#dashboard">Dashboard</a>
+            <a href="#analytics">Analytics</a>
+            <a href="#buildings">Buildings</a>
+            <a href="#reports">Reports</a>
+        </div>
+
+        <div class="footer-col">
+            <h3>Features</h3>
+
+            <a href="#">Live Monitoring</a>
+            <a href="#">Energy Analytics</a>
+            <a href="#">High Alerts</a>
+            <a href="/download/excel">Excel Reports</a>
+        </div>
+
+        <div class="footer-col">
+            <h3>Contact</h3>
+
+            <p>📧 tirulesnar@email.com</p>
+            <p>📱 +91 8247578932</p>
+            <p>📍 Andhra Pradesh, India.</p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        © 2026 Smart Campus Energy Monitoring System |
+        Designed & Developed by <b>Tirupathi Rao Guggilapu ❤️</b>
+
+    </div>
+
+</footer>
+</body>
+</html>
+
