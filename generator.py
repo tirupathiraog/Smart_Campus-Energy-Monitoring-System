@@ -3,7 +3,7 @@ import random
 import time
 from datetime import datetime
 
-API_URL = "http://127.0.0.1:8000/upload"
+API_URL = "https://smart-campus-energy-monitoring-system.onrender.com/upload"
 
 BUILDINGS = {
 "Degree Block": ["Lab1", "Lab2", "Lab3"],
@@ -47,11 +47,19 @@ def send():
     while True:
         data = generate()
 
-        try:
-            requests.post(API_URL, json=data)
-            print("Sent:", data)
-        except Exception as e:
-            print("Error:", e)
+       try:
+          response = requests.post(API_URL, json=data)
+
+          print("Status Code:", response.status_code)
+          print("Response:", response.text)
+
+          if response.status_code == 200:
+              print("Sent:", data)
+          else:
+              print("Failed:", data)
+
+       except Exception as e:
+           print("Error:", e)
 
         time.sleep(10)
 
